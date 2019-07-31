@@ -1,0 +1,19 @@
+.fullwidth {
+    width: 100%;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+::placeholder {
+    font-size: 12px;
+}
+
+.minusLeft {
+    direction: ltr;
+}
+
+.smallFont {
+    font-size: 12px;
+}

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <title>Dong</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="C:\Users\Kara\Desktop\dong\Style.css">
+</head>
+
+
+
+<!-- <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> -->
+
+<body>
+    <header>
+        <div class="container">
+            <div class="col-md-12 d-flex justify-content-center bg-primary">
+                <a class="text-light" href="#">LOGO</a>
+            </div>
+            <nav class="navbar navbar-expand-sm bg-dark navbar-dark d-flex justify-content-between">
+                <ul class="navbar-nav pr-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">صفحه اصلی</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">لیست دوستان</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">حساب من</a>
+                    </li>
+                </ul>
+                <a class="d-flex justify-content-left" href="#">ورود/عضویت</a>
+            </nav>
+        </div>
+    </header>
+    <br>
+    <div id="app">
+        <div class="container d-flex justify-content-right">
+            افزودن:
+        </div>
+        <br>
+        <div class="container">
+            <div class="card bg-secondary text-white">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <!-- Button to Open the Modal -->
+                            <button class="bg-secondary text-white cursor-pointer" data-toggle="modal"
+                                data-target="#myModal2">
+                                حساب جدید2
+                            </button>
+                            <!-- The Modal -->
+                            <div class="modal" id="myModal2">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <!-- Modal Header -->
+                                        <div class="modal-header text-dark">
+                                            <button v-on:click="clear" type="button" class="close ml-0"
+                                                data-dismiss="modal">&times;</button>
+                                            <h1 class="fullwidth text-center">افزودن حساب2</h1>
+                                        </div>
+                                        <br>
+                                        <!-- Modal body -->
+                                        <div class="container">
+                                            <div class="row">
+                                                    <div class="col-md-3 text-dark text-right pl-0">
+                                                            <div class="form-group">
+                                                                    <select   v-model="optionValue" class="form-control smallFont">
+                                                                    <option value="0" class="smallFont">انتخاب نام</option>
+                                                                    <option v-for= "namee in allNames" :value="namee.id">{{namee.name}}{{namee.phone}}</option>
+                                                                    </select>
+                                                                  </div>
+                                                        </div>
+                                                <div class="col-md-3 text-dark text-right pl-0 pr-0">
+                                                    <div class="form-group">
+                                                        <input v-model="bUser.name" type="text" class="form-control"
+                                                            id="text" placeholder="نام" name="text">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 text-dark text-right pr-0">
+                                                    <div class="row">
+                                                        <div class="col-md-6 text-dark text-right pl-0">
+                                                            <input v-model="bUser.pay" type="number"
+                                                                class="form-control" id="number" placeholder="پرداخت"
+                                                                name="number">
+                                                        </div>
+                                                        <div class="col-md-6 text-dark text-right pr-0">
+                                                            <input v-model="bUser.personalCost" type="number"
+                                                                class="form-control" placeholder="هزینه شخصی">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="container">
+                                                <div class="col-md-12 d-flex justify-content-right">
+                                                    <div class="m-auto">
+
+                                                        <button class="btn btn-primary" action="#"
+                                                            v-on:click="addUser">اضافه کردن افراد</button>
+                                                        <button class="btn btn-danger" action="#"
+                                                            v-on:click="bCount">محاسبه</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <ul style="list-style: none; padding-right: 0">
+                                            <li v-for="(bUser, index) in bUsers">
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-md-3 text-dark text-right">
+                                                            <div class="row">
+                                                                <div class="col-md-2 pt-2">
+                                                                    <span style="cursor: pointer; color: red"
+                                                                        v-on:click="deleteRow(index)">X</span>
+                                                                </div>
+                                                                <div class="col-md-9 pl-0 pr-0">
+                                                                    <input v-on:keyup="editInput($event, index, 'name')"
+                                                                        :value="bUser.name" type="text"
+                                                                        class="form-control" id="text" placeholder="نام"
+                                                                        name="text">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-9 text-dark text-right">
+                                                            <div class="row">
+                                                                <div class="col-md-4 text-dark text-right pl-0 pr-0">
+                                                                    <input v-on:keyup="editInput($event, index, 'pay')"
+                                                                        :value="bUser.pay" type="number"
+                                                                        class="form-control" id="number"
+                                                                        placeholder="پرداخت" name="number">
+                                                                </div>
+                                                                <div class="col-md-4 text-dark text-right pr-0 pl-0">
+                                                                    <input
+                                                                        v-on:keyup="editInput($event, index, 'personalCost')"
+                                                                        :value="bUser.personalCost" type="number"
+                                                                        class="form-control" placeholder="هزینه شخصی">
+                                                                </div>
+                                                                <div class="col-md-4 text-dark text-right pl-0 pt-2">
+                                                                    <h6 class="minusLeft"
+                                                                        :style="{color:textColor(bUser.cost)}">
+                                                                        {{bUser.cost}}</h6>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <div class="container">
+                                            <textarea v-model="user.description" name="name"
+                                                class="form-control codeinput" placeholder="توضیحات"
+                                                rows="3"></textarea>
+                                        </div>
+                                        <br>
+                                        <div class="container d-flex justify-content-center">
+                                            <button class="w-50" style="font-size:24px"><input placeholder="مکان"
+                                                    class="w-75" v-model="user.location"></input><i
+                                                    class="material-icons">location_on</i></button>
+                                        </div>
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <button action="#" v-on:click="bAdding">ثبت</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="bg-secondary text-white cursor-pointer" data-toggle="modal"
+                                data-target="#myModal">
+                                حساب جدید1
+                            </button>
+                            <!-- The Modal -->
+                            <div class="modal" id="myModal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <!-- Modal Header -->
+                                        <div class="modal-header text-dark">
+                                            <button v-on:click="clear" type="button" class="close ml-0"
+                                                data-dismiss="modal">&times;</button>
+                                            <h1 class="fullwidth text-center">افزودن حساب</h1>
+                                        </div>
+                                        <!-- Modal body -->
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-md-12 text-dark text-right">
+                                                    <div class="form-group">
+                                                        <input v-model="Amount.total" type="number" class="form-control"
+                                                            placeholder="هزینه کل" name="number">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3 text-dark text-right pl-0">
+                                                    <input value="نام کاربری" type="text" class="form-control">
+                                                </div>
+                                                <div class="col-md-6 text-dark text-right pr-0 pl-0">
+                                                    <input :value="Amount.mine" type="number" class="form-control"
+                                                        placeholder="هزینه خودم">
+                                                </div>
+                                                <div class="col-md-3 text-dark text-right pr-0">
+                                                    <input v-model="Amount.minePl" type="number" class="form-control"
+                                                        placeholder="هزینه شخصی">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-md-12 text-dark text-right">
+                                                    <form action="/action_page.php">
+                                                        <div class="form-group">
+                                                            <input v-model="subuser.name" type="text"
+                                                                class="form-control" id="text" placeholder="نام"
+                                                                name="text">
+                                                        </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="container">
+                                                <div class="col-md-12 d-flex justify-content-right">
+                                                    <div class="m-auto">
+                                                        <button class="btn btn-primary" action="#"
+                                                            v-on:click="addNewUser">اضافه کردن افراد</button>
+                                                        <button class="btn btn-danger" action="#"
+                                                            v-on:click="personal">هزینه های شخصی</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <ul style="list-style: none; padding-right: 0">
+                                            <li v-for="subuser in subusers">
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-md-3 text-dark text-right pl-0">
+                                                            <div class="form-group">
+                                                                <input :value="subuser.name" type="text"
+                                                                    class="form-control" id="text" placeholder="نام"
+                                                                    name="text">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-9 text-dark text-right pr-0">
+                                                            <div class="row">
+                                                                <div class="col-md-8 text-dark text-right pl-0">
+                                                                    <input :value="subuser.price" type="number"
+                                                                        class="form-control" id="number"
+                                                                        placeholder="مبلغ" name="number">
+                                                                </div>
+                                                                <div class="col-md-4 text-dark text-right pr-0">
+                                                                    <input v-model="subuser.pricePl" type="number"
+                                                                        class="form-control" placeholder="هزینه شخصی">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <div class="container">
+                                            <textarea v-model="user.description" name="name"
+                                                class="form-control codeinput" placeholder="توضیحات"
+                                                rows="3"></textarea>
+                                        </div>
+                                        <br>
+                                        <div class="container d-flex justify-content-center">
+                                            <button class="w-50" style="font-size:24px"><input placeholder="مکان"
+                                                    class="w-75" v-model="user.location"></input><i
+                                                    class="material-icons">location_on</i></button>
+                                        </div>
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <button action="#" v-on:click="adding">ثبت</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">توضیحات</div>
+                        <div class="col-md-3">مکان</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="container d-flex justify-content-right">
+            لیست اخیر:
+        </div>
+        <br>
+        <ul style="list-style: none; padding-right: 0">
+            <li v-for="user in users" :key="user">
+                <div class="container">
+                    <div class="card-body bg-secondary text-white">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <span class="minusLeft" s v-for="user in user.names">{{user.name}} : {{user.cost}}<br>
+                                </span>
+                            </div>
+                            <div class="col-md-3">{{user.description}}</div>
+                            <div class="col-md-3">{{user.location}}</div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+    </li>
+    </ul>
+    </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="./vuejs.js"></script>
+</body>
+
+</html>
